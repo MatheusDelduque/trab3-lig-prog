@@ -1,3 +1,5 @@
+Calculo1,2022.1,5,5
+Computacao,2022.1,5,5
 Calculo2,2022.2,5,5
-Calculo3,2023.1,5,6
+Calculo3,2023.1,5,8
 Fisica1,2023.1,4,10

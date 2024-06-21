@@ -5,7 +5,7 @@
 #include <sstream>
 
 // Construtor da classe Historico, inicializa o tamanho máximo e carrega as disciplinas do arquivo
-Historico::Historico(size_t max_size, const std::string &nomeArquivo) : tamanhoMaximo(max_size)
+Historico::Historico(unsigned int max_size, const std::string &nomeArquivo) : tamanhoMaximo(max_size)
 {
     carregarDisciplinas(nomeArquivo);
 }
@@ -61,8 +61,12 @@ void Historico::salvarDisciplinas(const std::string &nomeArquivo) const
 // Sobrecarga do operador para adicionar uma disciplina ao histórico
 int Historico::operator+=(const Disciplina &novaDisciplina)
 {
-    int index = 0;
+    unsigned int index = 0;
     // Verifica se o histórico atingiu o tamanho máximo
+
+    std::cout << disciplinas.size() << std::endl;
+    std::cout << tamanhoMaximo << std::endl;
+
     if (disciplinas.size() >= tamanhoMaximo)
     {
         std::cerr << "Erro: Historico cheio." << std::endl;
@@ -84,7 +88,14 @@ int Historico::operator+=(const Disciplina &novaDisciplina)
         if (disciplina < novaDisciplina)
         {
             std::cout << "Disciplina adicionada." << std::endl;
-            disciplinas.insert(disciplinas.begin() + index, novaDisciplina);
+            disciplinas.insert(disciplinas.begin() + index + 1, novaDisciplina);
+            break;
+        }
+
+        if (index == disciplinas.size() - 1)
+        {
+            std::cout << "Disciplina adicionada." << std::endl;
+            disciplinas.insert(disciplinas.begin() + index + 1, novaDisciplina);
             break;
         }
         index++;
@@ -105,7 +116,7 @@ int Historico::operator+=(const std::vector<Disciplina> &novasDisciplinas)
     }
     for (const auto &novaDisciplina : novasDisciplinas)
     {
-        int index = 0;
+        unsigned int index = 0;
         for (const auto &disciplina : disciplinas)
         {
             {
@@ -121,7 +132,13 @@ int Historico::operator+=(const std::vector<Disciplina> &novasDisciplinas)
                 if (disciplina < novaDisciplina)
                 {
                     std::cout << "Disciplina adicionada." << std::endl;
-                    disciplinas.insert(disciplinas.begin() + index, novaDisciplina);
+                    disciplinas.insert(disciplinas.begin() + index + 1, novaDisciplina);
+                    break;
+                }
+                if (index == disciplinas.size() - 1)
+                {
+                    std::cout << "Disciplina adicionada." << std::endl;
+                    disciplinas.insert(disciplinas.begin() + index + 1, novaDisciplina);
                     break;
                 }
                 index++;
@@ -143,13 +160,14 @@ int Historico::operator-=(const std::string &nomeDisciplina)
 
         if (disciplina.nome == nomeDisciplina)
         {
+
             disciplinas.erase(disciplinas.begin() + index);
             std::cout << "Disciplina removida." << std::endl;
             std::cout << std::endl;
             return index;
         }
+        index++;
     }
-
 
     std::cerr << "Erro: Disciplina nao encontrada." << std::endl;
     std::cout << std::endl;
@@ -179,7 +197,6 @@ double &Historico::operator[](const std::string &nomeDisciplina)
     auto it = std::find_if(disciplinas.begin(), disciplinas.end(),
                            [&nomeDisciplina](const Disciplina &disciplina)
                            { return disciplina.nome == nomeDisciplina; });
-
 
     // Verifica se a disciplina foi encontrada
     if (it != disciplinas.end())

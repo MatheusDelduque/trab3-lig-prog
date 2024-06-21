@@ -5,7 +5,7 @@
 int main()
 {
     std::string nomeArquivo = "historico.txt";
-    Historico historico(5, nomeArquivo); // Define um histórico com tamanho máximo de 10 disciplinas
+    Historico historico(8, nomeArquivo); // Define um histórico com tamanho máximo de 10 disciplinas
     int opcao;
 
     do

@@ -7,7 +7,7 @@
 class Historico
 {
 public:
-    Historico(size_t max_size, const std::string &arquivo);
+    Historico(unsigned int max_size, const std::string &arquivo);
     void carregarDisciplinas(const std::string &nomeArquivo);
     void salvarDisciplinas(const std::string &nomeArquivo) const;
 
@@ -23,6 +23,6 @@ public:
 private:
     double notaNaoEncontrada;
     std::vector<Disciplina> disciplinas;
-    size_t tamanhoMaximo;
+    unsigned int tamanhoMaximo;
 };
 #endif // HISTORICO_H
